@@ -1,0 +1,18 @@
+{
+  "name": "led-on-off",
+  "version": "1.0.0",
+  "description": "Turn on/off LED using nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "pi",
+    "nodejs"
+  ],
+  "author": "Shahab Qamar",
+  "license": "ISC",
+  "dependencies": {
+    "onoff": "^1.1.9"
+  }
+}
