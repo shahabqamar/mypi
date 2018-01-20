@@ -1,7 +1,27 @@
 <html>
 
+<head>
+    <meta name="viewport" content="width=device-width">
+</head>
+
 <body>
-    Loaded File
+    <label>
+        <input type="checkbox" id="light"> LED
+    </label>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script>
+        var socket = io();
+        window.addEventListener("load", function () {
+            var lightbox = document.getElementById("light");
+            lightbox.addEventListener("change", function () {
+                socket.emit("light", Number(this.checked));
+            })
+        });
+        socket.on("light", function (data) {
+            document.getElementById("light").checked = data;
+            socket.emit("light", data);
+        });
+    </script>
 </body>
 
 </html>
