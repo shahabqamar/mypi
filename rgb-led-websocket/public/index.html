@@ -7,8 +7,9 @@
 
 <body>
     <div class="page-wrapper">
-        <input type="button" id="jscolorBtn" class="jscolor {valueElement: 'color_value', onFineChange:'setLedColor(this)'}" value="LED">LED
-        Colour
+        <button type="button" id="jscolorBtn" class="jscolor {valueElement: 'color_value', onFineChange:'setLedColor(this)'}">
+            LED Colour
+        </button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
     <script src="js/jscolor.min.js"></script>
@@ -19,7 +20,6 @@
             var rgbArr = rgbString.substring(4, rgbString.length - 1)
                 .replace(/ /g, '')
                 .split(',');
-            console.log(rgbArr);
             socket.emit("ledColorChange", rgbArr);
         }
     </script>
