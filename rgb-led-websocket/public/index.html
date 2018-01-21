@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <input type="button" id="jscolorBtn" class="jscolor {valueElement: 'color_value', onFineChange:'setLedColor(this)'}" value="LED">LED
+        Colour
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="js/jscolor.min.js"></script>
+    <script>
+        var socket = io(); //load socket.io-client and connect to the host that serves the page
+        function setLedColor(picker) {
+            var rgbString = picker.toRGBString();
+            var rgbArr = rgbString.substring(4, rgbString.length - 1)
+                .replace(/ /g, '')
+                .split(',');
+            console.log(rgbArr);
+            socket.emit("ledColorChange", rgbArr);
+        }
+    </script>
+</body>
+
+</html>
