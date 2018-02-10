@@ -1,0 +1,46 @@
+html,
+body {
+    padding: 0;
+    margin: 0;
+    font-smooth: auto;
+}
+
+.lcd-container {
+    width: 320px;
+    height: 240px;
+    background: #384051;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+}
+
+.lcd-container-inner {
+    padding: 10px;
+}
+
+.total-cost .label {
+    font-size: 10px;
+}
+
+.total-cost .value {
+    font-size: 26px;
+    display: block;
+}
+
+.total-cost .feedback {
+    font-size: 12px;
+    display: block;
+    color: #41f4d0;
+}
+
+.current-tarrif {
+    position: absolute;
+    top:10px;
+    left: 10px;
+}
+
+.kwh-usage {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
