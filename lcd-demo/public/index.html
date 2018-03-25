@@ -1,0 +1,134 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+</head>
+
+<body class="sans-serif">
+    <div class="lcd-container">
+        <div class="lcd-container-inner text-center">
+            <div class="total-cost">
+                <span class="label">This billing cycle so far</span>
+                <span class="value">$<span id="dollar-value">120.50</span></span>
+                <span class="current-tarrif badge badge-pill badge-warning">Tarrif 1</span>
+                <span class="kwh-usage badge badge-pill badge-success">484kWh</span>
+
+
+                <span class="feedback">5% lower than last billing cycle</span>
+            </div>
+            <div class="usage-plot">
+                <canvas id="canvas"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+    <script src="js/chartjs-utils.js"></script>
+    <script>
+        var lineChartData = {
+            labels: ["10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm"],
+            defaultColor: '#fff',
+            datasets: [{
+                label: "Your usage",
+                borderColor: window.chartColors.red,
+                backgroundColor: window.chartColors.red,
+                fill: false,
+                data: [
+                    12,
+                    13,
+                    20,
+                    18,
+                    15,
+                    8,
+                    10
+                ],
+                yAxisID: "y-axis-1",
+            }, {
+                label: "Typical usage",
+                borderColor: window.chartColors.blue,
+                backgroundColor: window.chartColors.blue,
+                fill: false,
+                data: [
+                    15,
+                    17,
+                    22,
+                    20,
+                    18,
+                    12,
+                    11
+                ],
+                yAxisID: "y-axis-2"
+            }]
+        };
+
+        window.onload = function () {
+            var ctx = document.getElementById("canvas").getContext("2d");
+            window.myLine = Chart.Line(ctx, {
+                data: lineChartData,
+                options: {
+                    responsive: true,
+                    hoverMode: 'index',
+                    stacked: true,
+                    scales: {
+                        yAxes: [{
+                            type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                            display: true,
+                            position: "left",
+                            id: "y-axis-1",
+                            ticks: {
+                                fontColor: "#94a8d3",
+                                fontSize: 10
+
+                            }
+
+                        }, {
+                            type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                            display: false,
+                            position: "right",
+                            id: "y-axis-2",
+
+                            // grid line settings
+                            gridLines: {
+                                drawOnChartArea: false, // only want the grid lines for one axis to show up
+                            },
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                fontColor: "#94a8d3",
+                                fontSize: 10
+                            }
+                        }]
+                    },
+                    legend: {
+                        labels: {
+                            fontColor: "#94a8d3",
+                            fontSize: 10,
+                            usePointStyle: true
+                        }
+                    }
+                }
+            });
+        };
+
+        $(function () {
+            setInterval(function () {
+                var dollars = parseFloat($("#dollar-value").text());
+                dollars = (dollars + 0.05).toFixed(2);
+                $("#dollar-value").text(dollars);
+            }, 3000);
+        });
+    </script>
+
+</body>
+
+</html>
